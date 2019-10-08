@@ -1,6 +1,15 @@
 {
   "name": "react-scenic",
-  "version": "0.0.0",
-  "author": "Alec Larson <alec.stanford.larson@gmail.com> (http://github.com/aleclarson)",
-  "license": "MIT"
+  "version": "0.1.0",
+  "author": "Alec Larson (http://github.com/aleclarson)",
+  "license": "MIT",
+  "dependencies": {
+    "use-memo-one": "^1.1.1",
+    "wana": "^0.6.0-5"
+  },
+  "peerDependencies": {
+    "react": "^16.8",
+    "react-is": "^16.8",
+    "react-native": "*"
+  }
 }
