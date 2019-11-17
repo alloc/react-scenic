@@ -1,0 +1,35 @@
+{
+  "name": "react-scenic",
+  "version": "0.1.0",
+  "author": "Alec Larson (http://github.com/aleclarson)",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p .",
+    "prepare": "yarn build"
+  },
+  "main": "lib/index.js",
+  "types": "src/index.tsx",
+  "react-native": "src/index.tsx",
+  "dependencies": {
+    "react-layout-effect": "^1.0.3",
+    "tslib": "^1.10.0",
+    "use-memo-one": "^1.1.1",
+    "wana": "^0.10.1"
+  },
+  "devDependencies": {
+    "@types/react": "16.9.4",
+    "@types/react-is": "^16.7.1",
+    "prettier": "^1.19.1",
+    "react": "16.8.6",
+    "react-is": "16.8.6",
+    "react-native": "link:../../react-native/macos",
+    "tslint": "^5.20.1",
+    "tslint-mango": "^0.1.12",
+    "typescript": "^3.6.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8",
+    "react-is": "^16.8",
+    "react-native": "*"
+  }
+}
