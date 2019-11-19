@@ -2,6 +2,8 @@ import React from 'react'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'
 
+declare const console: any
+
 export class ScenicRoot {
   /** The current scene */
   scene!: Scene
