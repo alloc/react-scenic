@@ -1,5 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
-import { useMemo } from './common'
+import React, { ReactNode, useState } from 'react'
 import { ScenicRoot } from './ScenicRoot'
 
 export interface ScenicProps {
@@ -9,7 +8,7 @@ export interface ScenicProps {
 
 export const Scenic = React.forwardRef(
   (props: ScenicProps, ref: React.Ref<ScenicRoot>) => {
-    const scenic = useMemo(() => new ScenicRoot(props.initialPath), [])
+    const [scenic] = useState(() => new ScenicRoot(props.initialPath))
     React.useImperativeHandle(ref, () => scenic, [])
 
     const { Provider } = ScenicRoot.Context
