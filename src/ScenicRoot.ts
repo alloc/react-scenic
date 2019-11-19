@@ -64,7 +64,9 @@ export class ScenicRoot {
         const curr = this.visited[--this.index]
         this.path = curr.path
 
-        await prev.leave()
+        if (prev) {
+          await prev.leave()
+        }
         if (curr.isFocused) {
           await prev.enter()
         }
