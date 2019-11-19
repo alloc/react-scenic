@@ -68,7 +68,7 @@ export class ScenicRoot {
           await prev.leave()
         }
         if (curr.isFocused) {
-          await prev.enter()
+          await curr.enter()
         }
       }
     })
