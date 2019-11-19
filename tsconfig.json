@@ -1,14 +1,13 @@
 {
+  "include": ["src"],
   "compilerOptions": {
-    "declaration": true,
     "esModuleInterop": true,
-    "importHelpers": true,
     "jsx": "react",
     "lib": ["es2017"],
+    "moduleResolution": "node",
     "noUnusedLocals": true,
-    "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es5"
+    "target": "esnext"
   }
 }

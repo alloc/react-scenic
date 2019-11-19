@@ -4,25 +4,36 @@
   "author": "Alec Larson (http://github.com/aleclarson)",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p .",
+    "build": "rollup -c",
     "prepare": "yarn build"
   },
-  "main": "lib/index.js",
-  "types": "src/index.tsx",
-  "react-native": "src/index.tsx",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "react-native": {
+    "dist/index.cjs.js": "src/index.ts"
+  },
   "dependencies": {
+    "@babel/runtime": "^7.7.2",
     "react-layout-effect": "^1.0.3",
-    "tslib": "^1.10.0",
     "use-memo-one": "^1.1.1",
     "wana": "^0.10.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
     "@types/react": "16.9.4",
     "@types/react-is": "^16.7.1",
     "prettier": "^1.19.1",
     "react": "16.8.6",
     "react-is": "16.8.6",
     "react-native": "link:../../react-native/macos",
+    "rollup": "^1.27.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-dts": "^1.1.12",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.2",
     "tslint": "^5.20.1",
     "tslint-mango": "^0.1.12",
     "typescript": "^3.6.3"
