@@ -14,7 +14,7 @@ export class Scene {
   matches = 0
 
   /** True after the first render and before dismount */
-  isMounted = false
+  isMounted: boolean
 
   /** True when animating into focus */
   isEntering = false
@@ -24,7 +24,7 @@ export class Scene {
 
   /** True when this is the active scene of its context */
   get isFocused() {
-    return this.root.scene == this
+    return this.root.path == this.path
   }
 
   constructor(
@@ -37,6 +37,8 @@ export class Scene {
   ) {
     // The scene is pushed to the stack once created.
     this.index = this.stack ? this.stack.length : -1
+
+    this.isMounted = root.path == path
     return o(this)
   }
 

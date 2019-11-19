@@ -5,28 +5,29 @@ import { Scene } from './Scene'
 declare const console: any
 
 export class ScenicRoot {
-  /** The current scene */
-  scene!: Scene
-
   /** Flat map of cached scenes */
   cache = new Map<string, Scene>()
 
   /** Flat list of visited scenes */
-  visited: Scene[] = o([])
+  visited: Scene[]
 
-  /** Current position in `visited` history */
-  index = -1
+  /** The current position in `visited` array */
+  index = 0
 
-  constructor() {
+  constructor(
+    /** The current scene path */
+    public path: string
+  ) {
+    this.visited = o([this.get(path)])
     return o(this)
   }
 
   /** Provided by the `<Scenic>` component */
   static Context = React.createContext<ScenicRoot | null>(null)
 
-  /** The current path */
-  get path() {
-    return this.scene.path
+  /** The current scene */
+  get scene() {
+    return this.cache.get(this.path)!
   }
 
   /** Find a scene with the given path, else create one */
@@ -46,7 +47,7 @@ export class ScenicRoot {
         // Remove scenes that were visited after the current scene.
         this._truncate(this.index + 1)
 
-        this.scene = scene
+        this.path = path
         this.index = this.visited.push(scene) - 1
       } else {
         // tslint:disable-next-line
@@ -61,7 +62,7 @@ export class ScenicRoot {
       if (this.index > 0) {
         const prev = this.scene
         const curr = this.visited[--this.index]
-        this.scene = curr
+        this.path = curr.path
 
         await prev.leave()
         if (curr.isFocused) {

@@ -9,11 +9,8 @@ export interface ScenicProps {
 
 export const Scenic = React.forwardRef(
   (props: ScenicProps, ref: React.Ref<ScenicRoot>) => {
-    const scenic = useMemo(() => new ScenicRoot(), [])
+    const scenic = useMemo(() => new ScenicRoot(props.initialPath), [])
     React.useImperativeHandle(ref, () => scenic, [])
-    useEffect(() => {
-      scenic.visit(props.initialPath || '/')
-    }, [])
 
     const { Provider } = ScenicRoot.Context
     return (
