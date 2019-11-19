@@ -5,7 +5,7 @@ import { useScene } from './useScene'
 
 type Props = ({ path: string } | { scene: Scene }) & {
   force?: boolean
-  children: ReactNode
+  children?: ReactNode
 }
 
 /** Mount children only when the relevant scene is mounted. */
