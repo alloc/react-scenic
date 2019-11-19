@@ -36,7 +36,7 @@ export class Scene {
     readonly stack?: Scene[]
   ) {
     // The scene is pushed to the stack once created.
-    this.index = this.stack ? this.stack.length : -1
+    this.index = stack ? stack.length : -1
 
     this.isMounted = root.path == path
     return o(this)
