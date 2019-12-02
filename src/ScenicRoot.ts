@@ -65,7 +65,8 @@ export class ScenicRoot {
     }
   }
 
-  back() {
+  /** Return to the previous scene. */
+  return() {
     return noto(async () => {
       if (this.index > 0) {
         const prev = this.scene
