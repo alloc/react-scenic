@@ -7,9 +7,6 @@ let nextId = 1
 export class Scene {
   readonly id = nextId++
 
-  /** Position in the stack */
-  readonly index: number
-
   /** The number of scene elements that matched */
   matches = 0
 
@@ -31,20 +28,10 @@ export class Scene {
     /** The root context */
     readonly root: ScenicRoot,
     /** The unique identifier that usually starts with `/` */
-    readonly path: string,
-    /** Shared between all scenes in the stack. Only exists when pushed. */
-    readonly stack?: Scene[]
+    readonly path: string
   ) {
-    // The scene is pushed to the stack once created.
-    this.index = stack ? stack.length : -1
-
     this.isMounted = root.path == path
     return o(this)
-  }
-
-  /** The scene preceding us in the stack */
-  get parent() {
-    return this.index > 0 ? this.stack![this.index - 1] : null
   }
 
   /** Provided by scene components */
