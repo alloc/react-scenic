@@ -1,3 +1,4 @@
+import is from '@alloc/is'
 import React from 'react'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'
@@ -31,13 +32,20 @@ export class ScenicRoot {
   }
 
   /** Find a scene with the given path, else create one */
-  get(path: string) {
-    let scene = this.cache.get(path)
-    if (!scene) {
-      scene = new Scene(this, path)
-      this.cache.set(path, scene)
+  get(index?: number): Scene | null
+  get(path: string): Scene
+  get(arg?: string | number) {
+    let scene: Scene | undefined
+    if (is.string(arg)) {
+      scene = this.cache.get(arg)
+      if (!scene) {
+        scene = new Scene(this, arg)
+        this.cache.set(arg, scene)
+      }
+    } else {
+      scene = this.visited[this.index + (arg || 0)]
     }
-    return scene
+    return scene || null
   }
 
   visit(path: string) {
