@@ -1,6 +1,7 @@
 {
   "include": ["src"],
   "compilerOptions": {
+    "declaration": true,
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["es2017"],
@@ -8,6 +9,6 @@
     "noUnusedLocals": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext"
+    "target": "es5"
   }
 }
