@@ -38,6 +38,15 @@ export class Scene {
   static Context = React.createContext<Scene | null>(null)
 
   /**
+   * Focus this scene if not already focused.
+   */
+  focus() {
+    if (!this.isFocused) {
+      this.root.visit(this.path)
+    }
+  }
+
+  /**
    * Animate after gaining focus.
    *
    * This won't be called until the previous scene has finished
