@@ -1,5 +1,5 @@
 import React from 'react'
-import { o } from 'wana'
+import { noto, o } from 'wana'
 import { ScenicRoot } from './ScenicRoot'
 
 let nextId = 1
@@ -41,9 +41,9 @@ export class Scene {
    * Focus this scene if not already focused.
    */
   focus() {
-    if (!this.isFocused) {
+    noto(() => {
       this.root.visit(this.path)
-    }
+    })
   }
 
   /**

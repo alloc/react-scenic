@@ -37,11 +37,13 @@ export class ScenicRoot {
   get(arg?: string | number) {
     let scene: Scene | undefined
     if (is.string(arg)) {
-      scene = this.cache.get(arg)
-      if (!scene) {
-        scene = new Scene(this, arg)
-        this.cache.set(arg, scene)
-      }
+      noto(() => {
+        scene = this.cache.get(arg)
+        if (!scene) {
+          scene = new Scene(this, arg)
+          this.cache.set(arg, scene)
+        }
+      })
     } else {
       scene = this.visited[this.index + (arg || 0)]
     }
@@ -49,20 +51,22 @@ export class ScenicRoot {
   }
 
   visit(path: string) {
-    if (this.path !== path) {
-      const scene = this.get(path)
-      if (scene.matches) {
-        // Remove scenes that were visited after the current scene.
-        this._truncate(this.index + 1)
+    noto(() => {
+      if (this.path !== path) {
+        const scene = this.get(path)
+        if (scene.matches) {
+          // Remove scenes that were visited after the current scene.
+          this._truncate(this.index + 1)
 
-        this.path = path
-        this.index = this.visited.push(scene) - 1
-      } else {
-        // tslint:disable-next-line
-        console.error(`Scene not found: "${path}"`)
+          this.path = path
+          this.index = this.visited.push(scene) - 1
+        } else {
+          // tslint:disable-next-line
+          console.error(`Scene not found: "${path}"`)
+        }
+        this._clean()
       }
-      this._clean()
-    }
+    })
   }
 
   /** Return to the previous scene. */
