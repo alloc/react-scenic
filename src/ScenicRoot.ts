@@ -72,19 +72,22 @@ export class ScenicRoot {
     })
   }
 
-  /** Return to the previous scene. */
+  /** Return to the previous scene, if possible. */
   return() {
     return noto(async () => {
       if (this.index > 0) {
-        const prev = this.scene
-        const curr = this.visited[--this.index]
-        this.path = curr.path
+        const prev = this.get()
+        this.index--
 
-        if (prev) {
-          await prev.leave()
-        }
-        if (curr.isFocused) {
-          await curr.enter()
+        const curr = this.get()
+        curr.willFocus(curr)
+        await prev.onBlur(prev)
+
+        // The user may have navigated elsewhere while "onBlur" was pending.
+        if (curr == this.get()) {
+          this.path = curr.path
+          prev.didBlur(prev)
+          curr.onFocus(curr)
         }
       }
     })

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Channel } from 'react-ch'
 import { noto, o } from 'wana'
 import { ScenicRoot } from './ScenicRoot'
 
@@ -17,11 +18,29 @@ export class Scene {
   /** True after the first render and before dismount */
   isMounted: boolean
 
-  /** True when animating into focus */
-  isEntering = false
+  /**
+   * Called before this scene gains focus, and before the previous
+   * scene has `onBlur` called.
+   */
+  willFocus = new Channel<Scene>('willFocus')
 
-  /** True when animating out of focus */
-  isLeaving = false
+  /**
+   * Called after this scene gains focus, and after the previous scene
+   * resolves its `onBlur` call.
+   */
+  onFocus = new Channel<Scene>('onFocus')
+
+  /**
+   * Called before this scene loses focus.
+   *
+   * Effect promises will delay the `onFocus` call.
+   */
+  onBlur = new Channel<Scene>('onBlur')
+
+  /**
+   * Called after this scene loses focus.
+   */
+  didBlur = new Channel<Scene>('didBlur')
 
   constructor(
     /** The root context that we exist in. */
@@ -51,28 +70,13 @@ export class Scene {
   }
 
   /**
-   * Animate after gaining focus.
-   *
-   * This won't be called until the previous scene has finished
-   * leaving, which is useful when they both share the same space,
-   * instead of being stacked.
+   * Return to the previous scene, if this scene is focused.
    */
-  async enter() {
-    this.isEntering = true
-    await Promise.resolve() // this.getEnterPromise()
-    this.isEntering = false
-  }
-
-  /**
-   * Animate after losing focus.
-   *
-   * The next scene won't execute its enter animation until this
-   * scene has finished leaving, which is useful when they both
-   * share the same space, instead of being stacked.
-   */
-  async leave() {
-    this.isLeaving = true
-    await Promise.resolve() // this.getLeavePromise()
-    this.isLeaving = false
+  leave() {
+    noto(() => {
+      if (this.isFocused) {
+        this.root.return()
+      }
+    })
   }
 }
