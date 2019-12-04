@@ -26,11 +26,6 @@ export class ScenicRoot {
   /** Provided by the `<Scenic>` component */
   static Context = React.createContext<ScenicRoot | null>(null)
 
-  /** The current scene */
-  get scene() {
-    return this.cache.get(this.path)!
-  }
-
   /** Find a scene with the given path, else create one */
   get(index?: number): Scene | null
   get(path: string): Scene
