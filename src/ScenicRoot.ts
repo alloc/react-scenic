@@ -16,7 +16,7 @@ export class ScenicRoot {
   index = 0
 
   constructor(
-    /** The current scene path */
+    /** The path of the currently focused scene. */
     public path: string
   ) {
     this.visited = o([this.get(path)])
@@ -49,6 +49,10 @@ export class ScenicRoot {
     return scene || null
   }
 
+  /**
+   * Render the given path (if not already the current path) and forget
+   * any scenes we previously called `back` on.
+   */
   visit(path: string) {
     noto(() => {
       if (this.path !== path) {

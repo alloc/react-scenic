@@ -4,6 +4,10 @@ import { ScenicRoot } from './ScenicRoot'
 
 let nextId = 1
 
+/**
+ * A scene can be visited multiple times, which means it has no
+ * knowledge of where it is in history.
+ */
 export class Scene {
   readonly id = nextId++
 
@@ -25,20 +29,20 @@ export class Scene {
   }
 
   constructor(
-    /** The root context */
+    /** The root context that we exist in. */
     readonly root: ScenicRoot,
-    /** The unique identifier that usually starts with `/` */
+    /** The path used when we're focused. */
     readonly path: string
   ) {
     this.isMounted = root.path == path
     return o(this)
   }
 
-  /** Provided by scene components */
+  /** Provided by the `<SceneMatch>` component */
   static Context = React.createContext<Scene | null>(null)
 
   /**
-   * Focus this scene if not already focused.
+   * Focus this scene, if not already focused.
    */
   focus() {
     noto(() => {
