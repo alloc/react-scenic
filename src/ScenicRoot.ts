@@ -26,9 +26,13 @@ export class ScenicRoot {
   /** Provided by the `<Scenic>` component */
   static Context = React.createContext<ScenicRoot | null>(null)
 
-  /** Find a scene with the given path, else create one */
-  get(index?: number): Scene | null
+  /** Get the current scene */
+  get(): Scene
+  /** Get the scene relative to the current `index` */
+  get(index: number): Scene | null
+  /** Get the scene for a new or existing path */
   get(path: string): Scene
+  /** @internal */
   get(arg?: string | number) {
     let scene: Scene | undefined
     if (is.string(arg)) {
