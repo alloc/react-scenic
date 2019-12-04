@@ -23,11 +23,6 @@ export class Scene {
   /** True when animating out of focus */
   isLeaving = false
 
-  /** True when this is the active scene of its context */
-  get isFocused() {
-    return this.root.path == this.path
-  }
-
   constructor(
     /** The root context that we exist in. */
     readonly root: ScenicRoot,
@@ -40,6 +35,11 @@ export class Scene {
 
   /** Provided by the `<SceneMatch>` component */
   static Context = React.createContext<Scene | null>(null)
+
+  /** True when this is the active scene of its context */
+  get isFocused() {
+    return this.root.path == this.path
+  }
 
   /**
    * Focus this scene, if not already focused.
