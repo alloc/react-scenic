@@ -19,7 +19,7 @@ export class ScenicRoot {
     /** The path of the currently focused scene. */
     public path: string
   ) {
-    this.visited = o([this.get(path)])
+    this.visited = o([o(this).get(path)])
     return o(this)
   }
 
