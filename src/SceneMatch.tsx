@@ -1,4 +1,4 @@
-import is from '@alloc/is'
+import { is } from '@alloc/is'
 import React, { ReactNode } from 'react'
 import { withAuto } from 'wana'
 import { Scene } from './Scene'

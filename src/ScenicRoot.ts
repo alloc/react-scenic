@@ -1,4 +1,4 @@
-import is from '@alloc/is'
+import { is } from '@alloc/is'
 import React from 'react'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'

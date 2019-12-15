@@ -14,7 +14,7 @@
     "dist/index.cjs.js": "src/index.ts"
   },
   "dependencies": {
-    "@alloc/is": "^1.2.0",
+    "@alloc/is": "^2.0.0",
     "@babel/runtime": "^7.7.2",
     "react-ch": "*",
     "react-layout-effect": "^1.0.3",
