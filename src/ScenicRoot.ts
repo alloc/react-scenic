@@ -54,19 +54,30 @@ export class ScenicRoot {
    * any scenes we previously called `back` on.
    */
   visit(path: string) {
-    noto(() => {
+    return noto(async () => {
       if (this.path !== path) {
-        const scene = this.get(path)
-        if (scene.matches) {
-          // Remove scenes that were visited after the current scene.
-          this._truncate(this.index + 1)
+        const prev = this.get()
+        const curr = this.get(path)
 
-          this.path = path
-          this.index = this.visited.push(scene) - 1
-        } else {
+        if (!curr.matches) {
           // tslint:disable-next-line
           console.error(`Scene not found: "${path}"`)
+          return
         }
+
+        // Remove scenes that were visited after the current scene.
+        this._truncate(++this.index)
+        this.visited.push(curr)
+
+        curr.willFocus(curr)
+        await prev.onBlur(prev)
+
+        if (curr == this.get()) {
+          this.path = path
+          prev.didBlur(prev)
+          curr.onFocus(curr)
+        }
+
         this._clean()
       }
     })
