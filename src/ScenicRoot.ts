@@ -3,8 +3,6 @@ import React from 'react'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'
 
-declare const console: any
-
 export class ScenicRoot {
   /** Flat map of cached scenes */
   cache = new Map<string, Scene>()
@@ -14,6 +12,9 @@ export class ScenicRoot {
 
   /** The current position in `visited` array */
   index = 0
+
+  /** The scene that will be focused once matched. */
+  nextScene?: Scene
 
   constructor(
     /** The path of the currently focused scene. */
@@ -50,6 +51,20 @@ export class ScenicRoot {
   }
 
   /**
+   * Increment the scene's `matches` count, which tracks how many
+   * components are related to the scene.
+   */
+  mount(scene: Scene) {
+    scene.matches++
+    if (scene == this.nextScene) {
+      this.visit(scene.path)
+    }
+    return () => {
+      scene.matches--
+    }
+  }
+
+  /**
    * Render the given path (if not already the current path) and forget
    * any scenes we previously called `back` on.
    */
@@ -59,11 +74,8 @@ export class ScenicRoot {
         const prev = this.get()
         const curr = this.get(path)
 
-        if (!curr.matches) {
-          // tslint:disable-next-line
-          console.error(`Scene not found: "${path}"`)
-          return
-        }
+        this.nextScene = curr.matches ? undefined : curr
+        if (this.nextScene) return
 
         // Remove scenes that were visited after the current scene.
         this._truncate(++this.index)

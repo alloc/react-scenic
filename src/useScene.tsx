@@ -19,13 +19,9 @@ export function useScene(path?: string) {
       throw Error('Cannot call "useScene" outside a scene component')
     }
   } else {
-    scene = useScenic().get(path)
-    useLayoutEffect(() => {
-      scene.matches++
-      return () => {
-        scene.matches--
-      }
-    })
+    const scenic = useScenic()
+    scene = scenic.get(path)
+    useLayoutEffect(() => scenic.mount(scene), [])
   }
 
   return scene
