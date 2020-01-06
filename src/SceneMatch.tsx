@@ -12,7 +12,11 @@ type Props = ({ path: string } | { scene: Scene }) & {
 const isMounted = (scene: Scene) => scene.isMounted
 const { Provider: SceneProvider } = Scene.Context
 
-/** Mount children only when the relevant scene is mounted. */
+/**
+ * Mount children only when the relevant scene is mounted.
+ *
+ * Use `match={true}` to render children immediately.
+ */
 export const SceneMatch = withAuto((props: Props) => {
   const scene = 'scene' in props ? props.scene : useScene(props.path)
 
