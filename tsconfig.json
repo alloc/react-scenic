@@ -9,6 +9,6 @@
     "noUnusedLocals": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es5"
+    "target": "esnext"
   }
 }
