@@ -4,11 +4,14 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react'
+import { useChannel } from 'react-ch'
+import { Scene } from './Scene'
 import { ScenicRoot } from './ScenicRoot'
 
 export interface ScenicProps {
   children: ReactNode
   initialPath: string
+  onFocus?: (scene: Scene) => void
 }
 
 export const Scenic = React.forwardRef(
@@ -16,9 +19,12 @@ export const Scenic = React.forwardRef(
     const [scenic] = useState(() => new ScenicRoot(props.initialPath))
     useImperativeHandle(ref, () => scenic, [])
 
+    useChannel(scenic.onFocus, props.onFocus)
+
     useEffect(() => {
       const initialScene = scenic.get()
       initialScene.onFocus(initialScene)
+      scenic.onFocus(initialScene)
     }, [])
 
     const { Provider } = ScenicRoot.Context
