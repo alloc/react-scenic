@@ -1,5 +1,6 @@
 import { is } from '@alloc/is'
 import React from 'react'
+import { Channel } from 'react-ch'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'
 
@@ -15,6 +16,9 @@ export class ScenicRoot {
 
   /** The scene that will be focused once matched. */
   nextScene?: Scene
+
+  /** Called when the focused scene changes. */
+  onFocus = new Channel<Scene>()
 
   constructor(
     /** The path of the currently focused scene. */
@@ -88,6 +92,7 @@ export class ScenicRoot {
           this.path = path
           prev.didBlur(prev)
           curr.onFocus(curr)
+          this.onFocus(curr)
         }
 
         this._clean()
@@ -111,6 +116,7 @@ export class ScenicRoot {
           this.path = curr.path
           prev.didBlur(prev)
           curr.onFocus(curr)
+          this.onFocus(curr)
         }
       }
     })
