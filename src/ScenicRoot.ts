@@ -81,9 +81,7 @@ export class ScenicRoot {
         this.nextScene = curr.matches ? undefined : curr
         if (this.nextScene) return
 
-        // Remove scenes that were visited after the current scene.
-        this._truncate(++this.index)
-        this.visited.push(curr)
+        this._visit(curr)
 
         curr.willFocus(curr)
         await prev.onBlur(prev)
@@ -132,14 +130,20 @@ export class ScenicRoot {
     this.cache.forEach(scene => scene.matches || this.cache.delete(scene.path))
   }
 
-  /** Truncate the scene history */
-  private _truncate(length: number) {
+  private _visit(scene: Scene) {
     const scenes = this.visited
+    const length = ++this.index
+
+    // Truncate the scene history, removing scenes visited after the
+    // current point in history.
     if (length < scenes.length) {
       for (let i = scenes.length - 1; i >= length; i--) {
-        scenes[i].isMounted = false
+        scenes[i].isMounted = scenes[i] == scene
       }
       scenes.length = length
     }
+
+    this.visited.push(scene)
+    scene.isMounted = true
   }
 }
