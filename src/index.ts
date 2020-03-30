@@ -9,3 +9,4 @@ export * from './SceneMatch'
 // Hooks
 export * from './useScene'
 export * from './useScenic'
+export * from './useScenicRef'

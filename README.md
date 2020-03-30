@@ -35,6 +35,23 @@ scenic.visit('/')
 
 &nbsp;
 
+### useScenicRef
+
+Convenience hook for `useRef<ScenicRoot>(null)`
+
+Useful in the parent that renders a `<Scenic>` component.
+
+```tsx
+const scenicRef = useScenicRef()
+const rootElement = <Scenic ref={scenicRef}>{scenes}</Scenic>
+
+useEffect(() => {
+  scenicRef.current.visit('/foo')
+})
+```
+
+&nbsp;
+
 ### useScene
 
 Use the `Scene` of the nearest `<SceneMatch>` ancestor.
