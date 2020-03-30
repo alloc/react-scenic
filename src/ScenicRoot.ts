@@ -15,7 +15,7 @@ export class ScenicRoot {
   index = 0
 
   /** The scene that will be focused once matched. */
-  nextScene?: Scene
+  pendingScene?: Scene
 
   /** Called when the focused scene changes. */
   onFocus = new Channel<Scene>()
@@ -60,7 +60,7 @@ export class ScenicRoot {
    */
   mount(scene: Scene) {
     scene.matches++
-    if (scene == this.nextScene) {
+    if (scene == this.pendingScene) {
       this.visit(scene.path)
     }
     return () => {
@@ -128,8 +128,8 @@ export class ScenicRoot {
   }
 
   private _visit(scene: Scene) {
-    this.nextScene = scene.matches ? undefined : scene
-    if (this.nextScene) return false
+    this.pendingScene = scene.matches ? undefined : scene
+    if (this.pendingScene) return false
 
     const scenes = this.visited
     const length = ++this.index
