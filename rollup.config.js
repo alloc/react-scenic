@@ -1,9 +1,9 @@
 import path from 'path'
 
-import ts from 'rollup-plugin-typescript2'
+import ts from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
 import babel from 'rollup-plugin-babel'
-import resolve from 'rollup-plugin-node-resolve'
+import resolve from '@rollup/plugin-node-resolve'
 
 const external = id => !id.startsWith('.')
 const extensions = ['.ts', '.tsx']
@@ -36,7 +36,7 @@ const esmBundle = config => ({
   external,
   plugins: [
     resolve({ extensions }),
-    ts({ check: false }),
+    ts(),
     babel(
       getBabelOptions(
         { useESModules: true },
@@ -57,7 +57,7 @@ const cjsBundle = config => ({
   external,
   plugins: [
     resolve({ extensions }),
-    ts({ check: false }),
+    ts(),
     babel(getBabelOptions({ useESModules: false })),
   ],
 })
@@ -70,7 +70,7 @@ const dtsBundle = config => ({
       format: 'es',
     },
   ],
-  plugins: [dts()],
+  plugins: [ts(), dts()],
   external,
 })
 
