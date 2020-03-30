@@ -70,7 +70,7 @@ const dtsBundle = config => ({
       format: 'es',
     },
   ],
-  plugins: [ts(), dts()],
+  plugins: [dts()],
   external,
 })
 
