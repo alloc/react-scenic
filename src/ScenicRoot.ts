@@ -4,6 +4,8 @@ import { Channel } from 'react-ch'
 import { noto, o } from 'wana'
 import { Scene } from './Scene'
 
+declare const console: any
+
 export class ScenicRoot {
   /** Flat map of cached scenes */
   cache = new Map<string, Scene>()
@@ -77,20 +79,10 @@ export class ScenicRoot {
       if (this.path !== path) {
         const prev = this.get()
         const curr = this.get(path)
-
         if (this._visit(curr)) {
-          curr.willFocus(curr)
-          await prev.onBlur(prev)
-
-          if (curr == this.get()) {
-            this.path = path
-            prev.didBlur(prev)
-            curr.onFocus(curr)
-            this.onFocus(curr)
-          }
+          this._focus(curr, prev)
+          this._clean()
         }
-
-        this._clean()
       }
     })
   }
@@ -99,22 +91,25 @@ export class ScenicRoot {
   return() {
     return noto(async () => {
       if (this.index > 0) {
-        const prev = this.get()
-        this.index--
-
-        const curr = this.get()
-        curr.willFocus(curr)
-        await prev.onBlur(prev)
-
-        // The user may have navigated elsewhere while "onBlur" was pending.
-        if (curr == this.get()) {
-          this.path = curr.path
-          prev.didBlur(prev)
-          curr.onFocus(curr)
-          this.onFocus(curr)
-        }
+        this.index -= 1
+        this._focus(this.get(), this.get(+1)!)
       }
     })
+  }
+
+  protected _focus(curr: Scene, prev: Scene) {
+    const blocking = prev
+      .onBlur(curr)
+      .then(() => {
+        if (prev !== this.get()) {
+          prev.didBlur()
+        }
+      })
+      .catch(console.error) // tslint:disable-line
+
+    this.path = curr.path
+    this.onFocus(curr)
+    curr.onFocus(prev, blocking)
   }
 
   // TODO: find matching scene and clone it onto the stack?

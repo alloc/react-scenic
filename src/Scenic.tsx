@@ -8,6 +8,8 @@ import { useChannel } from 'react-ch'
 import { Scene } from './Scene'
 import { ScenicRoot } from './ScenicRoot'
 
+const noBlocking = Promise.resolve()
+
 export interface ScenicProps {
   children: ReactNode
   initialPath: string
@@ -23,7 +25,7 @@ export const Scenic = React.forwardRef(
 
     useEffect(() => {
       const initialScene = scenic.get()
-      initialScene.onFocus(initialScene)
+      initialScene.onFocus(null, noBlocking)
       scenic.onFocus(initialScene)
     }, [])
 

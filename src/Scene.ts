@@ -19,16 +19,10 @@ export class Scene {
   isMounted: boolean
 
   /**
-   * Called before this scene gains focus, and before the previous
-   * scene has `onBlur` called.
-   */
-  willFocus = new Channel<Scene>('willFocus')
-
-  /**
    * Called after this scene gains focus, and after the previous scene
    * resolves its `onBlur` call.
    */
-  onFocus = new Channel<Scene>('onFocus')
+  onFocus = new Channel<[Scene | null, Promise<void>]>('onFocus')
 
   /**
    * Called before this scene loses focus.
@@ -40,7 +34,7 @@ export class Scene {
   /**
    * Called after this scene loses focus.
    */
-  didBlur = new Channel<Scene>('didBlur')
+  didBlur = new Channel<void>('didBlur')
 
   constructor(
     /** The root context that we exist in. */
@@ -55,7 +49,7 @@ export class Scene {
   /** Provided by the `<SceneMatch>` component */
   static Context = React.createContext<Scene | null>(null)
 
-  /** True when this is the active scene of its context */
+  /** True between `onFocus` and `didBlur` */
   get isFocused() {
     return this.root.path == this.path
   }
