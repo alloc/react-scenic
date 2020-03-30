@@ -4,6 +4,8 @@ The best observable router for React. 🌋
 
 ## API
 
+The API is under development. Expect breaking changes and undocumented features.
+
 ### Scenic
 
 The `<Scenic>` component decides which scenes are mounted, which scene is focused, and which scenes have been visited.
@@ -19,12 +21,6 @@ The `<Scenic>` component decides which scenes are mounted, which scene is focuse
 ### ScenicRoot
 
 The context of a `<Scenic>` component. It tracks the current scene as well as past scenes. Its properties can be used in a `withAuto` component (eg: to render elements conditionally).
-
-When the `visit` method is passed a component, a new `ScenicRoot` is created and then rendered over the children of its parent `<Scenic>` component.
-
-```ts
-const root = scenic.visit('/page/1', <SomePage />)
-```
 
 &nbsp;
 
