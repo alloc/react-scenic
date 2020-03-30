@@ -34,6 +34,11 @@ export class ScenicRoot {
   /** Provided by the `<Scenic>` component */
   static Context = React.createContext<ScenicRoot | null>(null)
 
+  get prevPath() {
+    const scene = this.visited[this.index - 1]
+    return scene ? scene.path : null
+  }
+
   /** Get the current scene */
   get(): Scene
   /** Get the scene relative to the current `index` */
