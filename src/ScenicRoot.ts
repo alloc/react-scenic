@@ -78,19 +78,16 @@ export class ScenicRoot {
         const prev = this.get()
         const curr = this.get(path)
 
-        this.nextScene = curr.matches ? undefined : curr
-        if (this.nextScene) return
+        if (this._visit(curr)) {
+          curr.willFocus(curr)
+          await prev.onBlur(prev)
 
-        this._visit(curr)
-
-        curr.willFocus(curr)
-        await prev.onBlur(prev)
-
-        if (curr == this.get()) {
-          this.path = path
-          prev.didBlur(prev)
-          curr.onFocus(curr)
-          this.onFocus(curr)
+          if (curr == this.get()) {
+            this.path = path
+            prev.didBlur(prev)
+            curr.onFocus(curr)
+            this.onFocus(curr)
+          }
         }
 
         this._clean()
@@ -131,6 +128,9 @@ export class ScenicRoot {
   }
 
   private _visit(scene: Scene) {
+    this.nextScene = scene.matches ? undefined : scene
+    if (this.nextScene) return false
+
     const scenes = this.visited
     const length = ++this.index
 
@@ -144,6 +144,6 @@ export class ScenicRoot {
     }
 
     this.visited.push(scene)
-    scene.isMounted = true
+    return (scene.isMounted = true)
   }
 }
