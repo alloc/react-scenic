@@ -73,7 +73,24 @@ export class ScenicRoot {
     }
     return () => {
       scene.matches--
+
+  /**
+   * Force a scene to unmount, causing it to lose focus and causing
+   * any relevant `SceneMatch` elements to unmount.
+   *
+   * You usually call the `Scene#unmount` method instead.
+   *
+   * If the first scene in history is passed, this method is a no-op.
+   */
+  unmount(scene: Scene) {
+    if (this.visited[0] !== scene) {
+      if (scene.isMounted) {
+        scene.leave()
+        scene.isMounted = false
+      }
+      return true
     }
+    return false
   }
 
   /**

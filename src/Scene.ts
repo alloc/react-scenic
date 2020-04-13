@@ -15,7 +15,12 @@ export class Scene {
   /** The number of scene elements that matched */
   matches = 0
 
-  /** True after the first render and before dismount */
+  /**
+   * True after the first render and before unmount.
+   *
+   * Always use the `unmount` method instead of mutating this
+   * property directly.
+   */
   isMounted: boolean
 
   /**
@@ -71,6 +76,22 @@ export class Scene {
       if (this.isFocused) {
         this.root.return()
       }
+    })
+  }
+
+  /**
+   * Unmount any `SceneMatch` elements that are observing this
+   * scene's `isMounted` property.
+   *
+   * Always call this from within a `didBlur` handler to avoid
+   * unmounting before exit animations can finish.
+   *
+   * When this scene is focused, its root is forced to return to
+   * the previous scene.
+   */
+  unmount() {
+    noto(() => {
+      this.root.unmount(this)
     })
   }
 }
