@@ -73,6 +73,11 @@ export class ScenicRoot {
     }
     return () => {
       scene.matches--
+      if (!scene.matches) {
+        this.unmount(scene)
+      }
+    }
+  }
 
   /**
    * Force a scene to unmount, causing it to lose focus and causing
