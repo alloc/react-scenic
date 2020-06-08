@@ -2,7 +2,7 @@ import path from 'path'
 
 import ts from '@rollup/plugin-typescript'
 import dts from 'rollup-plugin-dts'
-import babel from 'rollup-plugin-babel'
+import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 
 const external = id => !id.startsWith('.')
@@ -78,7 +78,7 @@ const getBabelOptions = ({ useESModules }, targets) => ({
   babelrc: false,
   exclude: '**/node_modules/**',
   extensions: ['ts'],
-  runtimeHelpers: true,
+  babelHelpers: 'runtime',
   comments: false,
   presets: [['@babel/preset-env', { loose: true, modules: false, targets }]],
   plugins: [
