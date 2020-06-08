@@ -3,6 +3,8 @@ import { Channel } from 'react-ch'
 import { noto, o } from 'wana'
 import { ScenicRoot } from './ScenicRoot'
 
+declare const console: any
+
 let nextId = 1
 
 /**
@@ -98,5 +100,20 @@ export class Scene {
     noto(() => {
       this.root.unmount(this)
     })
+  }
+
+  /**
+   * Schedule a function to be invoked once this scene is finished
+   * blurring. When already blurred, your function is invoked by
+   * the microtask loop.
+   */
+  onceBlurred(fn: () => void) {
+    if (this.isFocused) {
+      this.didBlur.once(fn)
+    } else {
+      Promise.resolve(this.blurPromise)
+        .then(fn)
+        .catch(console.error) // tslint:disable-line
+    }
   }
 }
