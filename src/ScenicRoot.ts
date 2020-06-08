@@ -90,8 +90,8 @@ export class ScenicRoot {
   unmount(scene: Scene) {
     if (this.visited[0] !== scene) {
       if (scene.isMounted) {
-        scene.leave()
         scene.isMounted = false
+        scene.leave()
       }
       return true
     }
@@ -126,12 +126,14 @@ export class ScenicRoot {
   }
 
   protected _focus(curr: Scene, prev: Scene) {
-    const blurPromise = (prev.blurPromise = prev.onBlur(curr).then(() => {
-      prev.blurPromise = undefined
-      if (prev !== this.get()) {
-        prev.didBlur()
-      }
-    })).catch(console.error) // tslint:disable-line
+    const blurPromise = prev.isMounted
+      ? (prev.blurPromise = prev.onBlur(curr).then(() => {
+          prev.blurPromise = undefined
+          if (prev !== this.get()) {
+            prev.didBlur()
+          }
+        })).catch(console.error) // tslint:disable-line
+      : Promise.resolve()
 
     this.path = curr.path
     this.onFocus(curr)
