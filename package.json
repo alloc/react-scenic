@@ -30,10 +30,16 @@
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^4.0.0",
+    "@sucrase/jest-plugin": "^2.0.0",
+    "@testing-library/react": "^10.2.1",
+    "@types/jest": "^25.2.3",
     "@types/react": "16.9.4",
+    "@wana/test-utils": "^0.1.1",
+    "jest": "^26.0.1",
     "prettier": "^1.19.1",
-    "react": "16.8.6",
+    "react": "16.13.1",
     "react-ch": "^1.1.5",
+    "react-dom": "^16.13.1",
     "rollup": "^2.0.0",
     "rollup-plugin-dts": "^1.1.12",
     "tslint": "^5.20.1",
@@ -45,5 +51,13 @@
     "react": "*",
     "react-ch": "*",
     "wana": ">=0.12"
+  },
+  "jest": {
+    "transform": {
+      ".(js|jsx|ts|tsx)": "@sucrase/jest-plugin"
+    },
+    "setupFiles": [
+      "<rootDir>/spec/.setup.ts"
+    ]
   }
 }
