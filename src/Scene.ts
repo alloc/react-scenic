@@ -28,6 +28,12 @@ export class Scene {
   /**
    * Called after this scene gains focus, and after the previous scene
    * resolves its `onBlur` call.
+   *
+   * The 1st argument is the previous scene, which equals `null` as
+   * the initial scene is being focused.
+   *
+   * The 2nd argument is a `Promise` that resolves when the previous
+   * scene's `onBlur` handlers have finished.
    */
   onFocus = new Channel<[Scene | null, Promise<void>]>('onFocus')
 
