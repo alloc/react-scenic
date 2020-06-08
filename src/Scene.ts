@@ -41,6 +41,11 @@ export class Scene {
    */
   didBlur = new Channel<void>('didBlur')
 
+  /**
+   * Exists after `onBlur` is called, until resolved.
+   */
+  blurPromise?: Promise<void>
+
   constructor(
     /** The root context that we exist in. */
     readonly root: ScenicRoot,

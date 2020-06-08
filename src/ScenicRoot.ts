@@ -126,18 +126,16 @@ export class ScenicRoot {
   }
 
   protected _focus(curr: Scene, prev: Scene) {
-    const blocking = prev
-      .onBlur(curr)
-      .then(() => {
-        if (prev !== this.get()) {
-          prev.didBlur()
-        }
-      })
-      .catch(console.error) // tslint:disable-line
+    const blurPromise = (prev.blurPromise = prev.onBlur(curr).then(() => {
+      prev.blurPromise = undefined
+      if (prev !== this.get()) {
+        prev.didBlur()
+      }
+    })).catch(console.error) // tslint:disable-line
 
     this.path = curr.path
     this.onFocus(curr)
-    curr.onFocus(prev, blocking)
+    curr.onFocus(prev, blurPromise)
   }
 
   // TODO: find matching scene and clone it onto the stack?
