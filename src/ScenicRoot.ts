@@ -16,6 +16,9 @@ export class ScenicRoot {
   /** The current position in `visited` array */
   index = 0
 
+  /** When true, this `ScenicRoot` is mounted by a `<Scenic>` element. */
+  isMounted = false
+
   /** The scene that will be focused once matched. */
   pendingScene?: Scene
 
@@ -91,7 +94,9 @@ export class ScenicRoot {
     if (this.visited[0] !== scene) {
       if (scene.isMounted) {
         scene.isMounted = false
-        scene.leave()
+        if (this.isMounted) {
+          scene.leave()
+        }
       }
       return true
     }

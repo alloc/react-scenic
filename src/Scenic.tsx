@@ -5,6 +5,7 @@ import React, {
   useState,
 } from 'react'
 import { useChannel } from 'react-ch'
+import { useLayoutEffect } from 'react-layout-effect'
 import { Scene } from './Scene'
 import { ScenicRoot } from './ScenicRoot'
 
@@ -20,6 +21,13 @@ export const Scenic = React.forwardRef(
   (props: ScenicProps, ref: React.Ref<ScenicRoot>) => {
     const [scenic] = useState(() => new ScenicRoot(props.initialPath))
     useImperativeHandle(ref, () => scenic, [])
+
+    useLayoutEffect(() => {
+      scenic.isMounted = true
+      return () => {
+        scenic.isMounted = false
+      }
+    }, [])
 
     useChannel(scenic.onFocus, props.onFocus)
 
