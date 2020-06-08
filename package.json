@@ -23,7 +23,7 @@
     "@babel/runtime": "^7.7.2",
     "react-ch": "*",
     "react-layout-effect": "^1.0.3",
-    "wana": "^0.10.1"
+    "wana": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
