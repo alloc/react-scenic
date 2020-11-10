@@ -12,14 +12,17 @@ import { ScenicRoot } from './ScenicRoot'
 const noBlocking = Promise.resolve()
 
 export interface ScenicProps {
-  children: ReactNode
-  initialPath: string
+  state?: ScenicRoot
+  initialPath?: string
   onFocus?: (scene: Scene) => void
+  children?: ReactNode
 }
 
 export const Scenic = React.forwardRef(
   (props: ScenicProps, ref: React.Ref<ScenicRoot>) => {
-    const [scenic] = useState(() => new ScenicRoot(props.initialPath))
+    const [scenic] = useState(
+      props.state || (() => new ScenicRoot(props.initialPath || '/'))
+    )
     useImperativeHandle(ref, () => scenic, [])
 
     useLayoutEffect(() => {
