@@ -1,9 +1,7 @@
 dependencies:
   '@alloc/is': 2.1.1
   '@babel/runtime': 7.10.2
-  react-ch: 1.1.5_react@16.13.1
   react-layout-effect: 1.0.5_react@16.13.1
-  wana: 0.12.5_react@16.13.1
 devDependencies:
   '@babel/core': 7.10.2
   '@babel/plugin-transform-runtime': 7.10.1_@babel+core@7.10.2
@@ -15,19 +13,22 @@ devDependencies:
   '@testing-library/react': 10.2.1_react-dom@16.13.1+react@16.13.1
   '@types/jest': 25.2.3
   '@types/react': 16.9.4
-  '@wana/test-utils': 0.1.1_react@16.13.1+wana@0.12.5
+  '@wana/test-utils': 0.1.1_react@16.13.1+wana@0.13.8
   jest: 26.0.1
   prettier: 1.19.1
   react: 16.13.1
+  react-ch: 1.1.5_react@16.13.1
   react-dom: 16.13.1_react@16.13.1
   rollup: 2.15.0
   rollup-plugin-dts: 1.4.7_rollup@2.15.0+typescript@3.9.5
   tslint: 5.20.1_typescript@3.9.5
   tslint-mango: 0.1.12
   typescript: 3.9.5
+  wana: 0.13.8_react@16.13.1
 lockfileVersion: 5.1
 packages:
   /@alloc/is-dev/1.2.0:
+    dev: true
     resolution:
       integrity: sha512-h7hYO5kyrYC03O64XBLK80b6bNUYQCFPJayI96spdZ70BUi+nWDV/gEpVmx2gy3OgSSiTDOxS6d2bdasMiEGQQ==
   /@alloc/is/2.1.1:
@@ -1390,10 +1391,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Dk/IDOPtOgubt/IaevIUbTgV7doaKkoorvOyYM2CMwuDyP89bekI7H4xLIwunNYiK9jhCkmc6pUrJk3cj2AB9w==
-  /@wana/test-utils/0.1.1_react@16.13.1+wana@0.12.5:
+  /@wana/test-utils/0.1.1_react@16.13.1+wana@0.13.8:
     dependencies:
       react: 16.13.1
-      wana: 0.12.5_react@16.13.1
+      wana: 0.13.8_react@16.13.1
     dev: true
     peerDependencies:
       react: '*'
@@ -4008,6 +4009,7 @@ packages:
     resolution:
       integrity: sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
   /queue-microtask/1.1.3:
+    dev: true
     resolution:
       integrity: sha512-zC1ZDLKFhZSa8vAdFbkOGouHcOUMgUAI/2/3on/KktpY+BaVqABkzDSsCSvJfmLbICOnrEuF9VIMezZf+T0mBA==
   /react-ch/1.1.5_react@16.13.1:
@@ -4015,7 +4017,7 @@ packages:
       '@alloc/is': 2.1.1
       react: 16.13.1
       react-layout-effect: 1.0.5_react@16.13.1
-    dev: false
+    dev: true
     peerDependencies:
       react: '*'
     resolution:
@@ -5012,6 +5014,7 @@ packages:
   /use-memo-one/1.1.1_react@16.13.1:
     dependencies:
       react: 16.13.1
+    dev: true
     peerDependencies:
       react: ^16.8.0
     resolution:
@@ -5080,7 +5083,7 @@ packages:
     dev: true
     resolution:
       integrity: sha1-L3+bj9ENZ3JisYqITijRlhjgKPs=
-  /wana/0.12.5_react@16.13.1:
+  /wana/0.13.8_react@16.13.1:
     dependencies:
       '@alloc/is': 2.1.1
       '@alloc/is-dev': 1.2.0
@@ -5089,10 +5092,11 @@ packages:
       react: 16.13.1
       react-layout-effect: 1.0.5_react@16.13.1
       use-memo-one: 1.1.1_react@16.13.1
+    dev: true
     peerDependencies:
       react: '>=16.9'
     resolution:
-      integrity: sha512-K77FS/aGIfKOvxMYDO/yv+9pvNGNWejIVJ7tWU9HxzksY9osb69ChnX7evgFhTM8VxwEzRBQpnZ5xYl0EDzzVw==
+      integrity: sha512-MpkMaguxM+sKRiEapk+05U+hfIyIVYTiuC9ty7afEjKTozH958G7h86PX7niD9ysO2pzLOF+07fd5PKBmkx3Lw==
   /webidl-conversions/5.0.0:
     dev: true
     engines:
@@ -5244,7 +5248,7 @@ specifiers:
   jest: ^26.0.1
   prettier: ^1.19.1
   react: 16.13.1
-  react-ch: '*'
+  react-ch: ^1.1.5
   react-dom: ^16.13.1
   react-layout-effect: ^1.0.3
   rollup: ^2.0.0
@@ -5252,4 +5256,4 @@ specifiers:
   tslint: ^5.20.1
   tslint-mango: ^0.1.12
   typescript: ^3.6.3
-  wana: ^0.12.5
+  wana: '*'
