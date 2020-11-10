@@ -45,7 +45,7 @@
     "tslint": "^5.20.1",
     "tslint-mango": "^0.1.12",
     "typescript": "^3.6.3",
-    "wana": "^0.12.5"
+    "wana": "*"
   },
   "peerDependencies": {
     "react": "*",
